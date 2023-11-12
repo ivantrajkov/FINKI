@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Converter</title>
+  <script>
+function Lev(){
+  let x = document.getElementById("text").value
+  var array = x.split("").map(Number)
+  var firstTwo = array.slice(0,2)
+  var remaining = array.slice(2);
+  var newArray = remaining.concat(firstTwo)
+  document.getElementById("text").value=newArray.join("")
+}
+function Desen(){
+  let x = document.getElementById("text").value
+  var array = x.split("").map(Number)
+  var LastTwo =  array.slice(-2)
+  var remaining = array.slice(0,-2)
+
+  var newArray = LastTwo.concat(remaining)
+
+  document.getElementById("text").value=newArray.join("")
+
+}
+function Konvertiraj(){
+  let x = document.getElementById("text").value
+  var array = x.split("").map(Number)
+
+  array.forEach(function (element, index, array) {
+    if(element-2<0){
+      array[index]=10-(2-element);
+    } else array[index]=element-2;
+  });
+  document.getElementById("text").value=array.join("")
+}
+function Zachuvaj(){
+let x = document.getElementById("text").value
+  var array = x.split("").map(Number)
+  document.getElementById("text").value=null
+  var lista = document.getElementById("lista")
+  var ListItem = document.createElement("li")
+  ListItem.innerText=array.join("")
+  lista.appendChild(ListItem)
+}
+function Proveri(){
+  let x = document.getElementById("text").value
+  var array = x.split("").map(Number)
+  let count = 0;
+  array.forEach(function (element, index, array){
+    if(element%3==0) count++;
+  });
+  if(count>=3) document.getElementById("Vnesi").innerHTML="Sovrshen";
+}
+  </script>
+</head>
+<body>
+<div>
+<input id="text" type="text">
+  <input id="levo" type="button" value="<" onclick="Lev()">
+  <input id="desno" type="button" value=">" onclick="Desen()">
+  <input id="convert" type="button" value="CONVERT" onclick="Konvertiraj()">
+  <input id="store" type="button" value="STORE" onclick="Zachuvaj()">
+  <input id="check" type="button" value="CHECK" onclick="Proveri()">
+</div>
+<div id="Vnesi"></div>
+<div>
+  <ul id="lista">
+  </ul>
+</div>
+</body>
+</html>
