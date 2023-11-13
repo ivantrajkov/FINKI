@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kolokviumska</title>
+    <script>
+        function func(){
+            let x = document.getElementById("tekst").value
+            let array = x.split(",")
+            let color = array[0]
+            let width = array[1]
+            let height = array[2]
+            let content = array[3]
+            array = content.split("")
+            for(let i = 0; i < array.length; i++){
+                if(i%2==0){
+                    array[i]=array[i].toUpperCase()
+                } else array[i]=array[i].toLowerCase()
+            }
+            content=array.join("")
+            var tmp = document.getElementById("sliki")
+            var div = document.createElement("div")
+            div.style.backgroundColor=color
+            div.style.width=width+'px'
+            div.style.height=height+'px'
+            div.innerText=content;
+            div.style.margin="10px";
+            tmp.appendChild(div)
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="tekst">
+<input type="button" value="Постави" onclick="func()">
+
+<div id="sliki">
+
+
+</div>
+</body>
+</html>
