@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maraton</title>
+
+  <style>
+    table{
+      border: black solid 1px;
+      border-collapse: collapse;
+    }
+    td{
+      border: black solid 1px;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  var count = 0;
+
+  function p(kopce){
+    kopce.disabled=true
+    count++;
+    if(count<=0) count = 0
+    document.getElementById("br").innerText="Brojot na potvrdeni ucesnici e: " + count
+
+  }
+  function izbrisi(red){
+    let tmp = red.parentNode.parentNode
+    tmp.parentNode.removeChild(tmp)
+    count--;
+    if(count<=0) count = 0
+    document.getElementById("br").innerText="Brojot na potvrdeni ucesnici e: " + count
+  }
+  function func(){
+
+    var ime = document.getElementById("ime").value
+    var prezime = document.getElementById("prezime").value
+    var god = document.getElementById("god").value
+    var kod = document.getElementById("kod").value
+    let array = ""
+    for(let i = 0; i < kod.length; i++){
+      if(!isNaN(kod[i])){
+        if(parseInt(kod[i])>5){
+          array+=kod[i];
+        }
+      } else {
+        if(kod[i].toUpperCase()==kod[i]){
+          array+=kod[i].toLowerCase();
+        } else if(kod[i].toLowerCase()==kod[i]){
+          array+=kod[i].toUpperCase();
+        }
+      }
+    }
+    var pol = document.getElementById("pol").value
+    var tabela = document.getElementById("tabela")
+    var row = document.createElement("tr")
+    tabela.appendChild(row)
+    row.innerHTML+="<td>"+ime+"</td><td>"+prezime+"</td><td>"+array+"</td><td><input type='button' value='Potvrdi'id='potvrdi' onclick='p(this)'> <input type='button' value='Otstrani'id='otstrani' onclick='izbrisi(this)'></td>"
+    let tmp = document.getElementById("br")
+    if(parseInt(god)>18){
+      let x = document.getElementById("potvrdi")
+      x.disabled=true
+      x = document.getElementById("otstrani")
+      x.disabled=true
+
+    }
+
+    if(pol=="Masko"){
+      row.style.backgroundColor="blue"
+    } else if(pol=="Zensko") row.style.backgroundColor="red"
+
+    document.getElementById("ime").value=null
+    document.getElementById("prezime").value=null
+    document.getElementById("kod").value=null
+    document.getElementById("pol").value="Izberi"
+    document.getElementById("god").value=null
+  }
+
+</script>
+
+<h1>Ucesnici na maraton</h1>
+<p>  <label>Ime: </label> <input type="text" id="ime"></p>
+<p>  <label>Prezime: </label> <input type="text" id="prezime"> </p>
+<p> <label>Godini: </label> <input type="text" id="god"> </p>
+<p> <label>Kod: </label> <input type="text" id="kod"> </p>
+<p> <label>Pol: </label> <select id="pol"> <option> Izberi </option>  <option> Masko </option> <option> Zensko </option></select> </p>
+<p>  <input type="button" value="Add" onclick="func()">  </p>
+<!--mozhe vo nov red so <p></p> <div></div> <br> ili bilo koj nachin-->
+
+<table id="tabela">
+  <thead>
+  <tr>
+    <td>
+      Ime
+    </td>
+    <td>
+      Prezime
+    </td>
+    <td>
+      Tag
+    </td>
+    <td colspan="2">
+      Dodadi ili odzemi
+    </td>
+  </tr>
+  </thead>
+</table>
+<div id="br">
+  Brojot na potvrdeni ucesnici e: 0
+</div>
+</body>
+</html>
