@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vezba</title>
+    <style>
+        #smetka{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #smetka > div {
+            margin: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<script>
+
+    function clickP(kopce){
+        kopce.disabled=true;
+        var c = document.getElementById('clickI')
+        c.disabled=true;
+    }
+
+    function clickIzbrishi(kopce){
+        kopce.parentNode.parentNode.removeChild(kopce.parentNode)
+    }
+    function func(){
+        var name = document.getElementById("ime").value
+        var surname = document.getElementById("prezime").value
+        var registration = document.getElementById("reg").value
+        var age = document.getElementById("god").value
+        var yes = document.getElementById("da")
+        var no = document.getElementById("ne")
+        if(name.length === 0 || surname.length === 0 || registration.length === 0 || age.length === 0 || (yes.checked==false && no.checked==false)){
+            alert("Vnesi gi site polinja")
+            return
+        }
+
+        var array = registration.split("-")
+        array = array.join("")
+        if(!isNaN(array[0] || !isNaN(array[1]))){
+            alert("Nevalidna registracija")
+            return
+        }
+        if(isNaN(array[2]) || isNaN(array[3]) || isNaN(array[4]) || isNaN(array[5])){
+            alert("Nevalidna registracija")
+            return
+        }
+        if(!isNaN(array[7] || !isNaN(array[7]))){
+            alert("Nevalidna registracija")
+            return
+        }
+
+        var price = 3000;
+        if(array[2] == array[3] && array[3]==array[4] && array[4]==array[5]){
+            price+=1000;
+        }
+        var crash;
+        if(yes.checked==true){
+            price+=500;
+            crash = "Има"
+        } else crash = "Нема"
+
+
+        var tabela = document.getElementById("smetka")
+        var x = document.createElement("div")
+        if(age>30){
+            x.style.backgroundColor="red";
+        } else x.style.backgroundColor="green"
+        x.style.width="150px"
+        x.innerHTML = "<span>" + name + " " + surname + "<br>" + registration + "<br>" + "Сообраќајки: " + crash + "<br>" + "Старост на возило: " + age + "<br>"
+            + "За плаќање: " + price + "<br>" + "<input id='plati' type=button value='Плати' onclick='clickP(this)'>" + "   " + "<input type=button value='Избриши' id='clickI' onclick='clickIzbrishi(this)'>" + "</span>";
+        tabela.appendChild(x)
+
+    }
+</script>
+
+
+<h1>Осигурување на возилa</h1>
+
+<div>
+    <p>Име <input type="text" id="ime"></p>
+    <p>Презиме <input type="text" id="prezime"></p>
+    <p>Регистарска таблица <input type="text" id="reg"></p>
+    <p>Години на старост <input type="text" id="god"></p>
+    <p>Сообраќајна незгода <input type="radio" id="da"> Да <input type="radio" id="ne">Не</p>
+    <p><button id="generiraj" onclick="func()">Генерирај сметка</button></p>
+
+</div>
+<p>Сметки: </p>
+<div id="smetka">
+
+
+</div>
+
+</body>
+</html>
