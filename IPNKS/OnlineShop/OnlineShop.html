@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OnlineShop</title>
+
+    <style>
+
+        table{
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+        td{
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+        span{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #lokacija{
+            position: relative;
+            left: 450px;
+            bottom: 100px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+<script>
+
+    function izbrisi(kopce) {
+        kopce.parentNode.parentNode.style.backgroundColor="yellow";
+        kopce.parentNode.removeChild(kopce)
+        // kopce.disabled=true;
+        var active = document.getElementsByTagName("button").length
+        var tmp = document.getElementById("active")
+        tmp.innerText="Active items: " + active
+
+
+    }
+    function func(){
+
+        var name = document.getElementById("ime").value
+        var item = document.getElementById("predmet").value
+        var code = document.getElementById("kod").value
+        var description = document.getElementById("opis").value
+        var price = document.getElementById("cena").value
+        var used = document.getElementById("koristeno").value
+
+        if(name == null || item == null || code == null || description == null || price == null || (used=="--Select--")){
+            alert("Enter all fields")
+            return
+        }
+        if(price<=0){
+            alert("Cenata e nevalidna")
+            return
+        }
+        var newPrice = parseInt(price);
+        price*=0.10;
+        newPrice+=parseInt(price);
+        var array = ""
+        for(let i = 0; i < code.length; i++){
+            if(isNaN(parseInt(code[i]))){
+                array+=code[i]
+            }
+        }
+        array=array.split("!")
+        var data = document.getElementsByTagName("td")
+        for(let y = 0; y < data.length; y++){
+            if(array==data[y].textContent){
+                alert("This item is already active")
+                return;
+            }
+        }
+        var x = document.createElement("tr")
+        x.innerHTML="<td>" + name + "</td>" + "<td>" + item + "</td>" + "<td>" + newPrice + "</td>" +
+            "<td>" + code + "</td>" + "<td>" + array + "</td>" + "<td> <button id='sold' onclick='izbrisi(this)'>Sold</button></td>"
+        if(used=="used"){
+            var t = document.getElementById("tabela1")
+            t.appendChild(x)
+        } else {
+            var t = document.getElementById("tabela2")
+            t.appendChild(x)
+        }
+        var active = document.getElementsByTagName("button").length
+        var tmp = document.getElementById("active")
+        tmp.innerText="Active items: " + active
+
+    }
+
+</script>
+
+<h1>Online Shop</h1>
+
+<div>
+    <p>Name and Surname <input type="text" id="ime"></p>
+    <p>Item <input type="text" id="predmet"></p>
+    <p>Item code <input type="text" id="kod"></p>
+    <p>Item description <input type="text" id="opis"> </p>
+    <p>Price <input type="text" id="cena"> </p>
+    <p>Used <select id="koristeno">
+        <option>--Select--</option>
+        <option>used</option>
+        <option>never-used</option>
+    </select> </p>
+    <input type="button" id="dodaj" value="Add" onclick="func()">
+</div>
+<div id="active"> </div>
+<h2>Unused Items</h2>
+<div>
+    <table id="tabela1">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Item</td>
+            <td>Price</td>
+            <td>Code</td>
+            <td>Number</td>
+            <td>Actions</td>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div id="lokacija">
+<h2>Used Items</h2>
+<div>
+    <table id="tabela2">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Item</td>
+            <td>Price</td>
+            <td>Code</td>
+            <td>Number</td>
+            <td>Actions</td>
+        </tr>
+        </thead>
+    </table>
+</div>
+</div>
+
+</body>
+</html>
